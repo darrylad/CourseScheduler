@@ -1,40 +1,43 @@
 import os
 import csv
-from cli.bcolors import bcolors
+from constants.bcolors import bcolors
 
-path = ''
+path: str = ''
 
 
-requiredFilesFields = {
+requiredFilesFields: dict[str, list[str]] = {
     'courses.csv': ['Code', 'Students'],
     'rooms.csv': ['Room', 'Capacity'],
-    'meow.csv': ['Room', 'Capacity']
+    # 'students.csv': ['roll']
 }
 
 class Check:
     def __init__(self):
         self.path = path
 
-    def checkPath(self):
+    # check if given path exists
+    def checkPath(self) -> bool:
         if self == '':
-            print(f"{bcolors.FAIL}Empty target.{bcolors.ENDC}")
+            print(f"{bcolors.FAIL}Empty path. Please provide a valid path.{bcolors.ENDC}")
             return False
         elif not os.path.exists(self):
-            print(f"{bcolors.FAIL}Directory {self} not found.{bcolors.ENDC}")
+            print(f"{bcolors.FAIL}Directory \"{self}\" not found.{bcolors.ENDC}")
             return False
         else:
             return True
 
-    def readNames(self):
+    # print all files in the directory
+    def readNames(self) -> bool:
         try:
-            files = os.listdir(self.path)
+            files: list[str] = os.listdir(self.path)
             for file in files:
                 print('--'+file)
             return True
         except FileNotFoundError:
             return False
 
-    def checkNames(self):
+    # check if all required files are present
+    def checkNames(self) -> bool:
         try:
             files = os.listdir(self.path)
             for required_file in requiredFilesFields.keys():
@@ -46,8 +49,9 @@ class Check:
         except FileNotFoundError:
             print(f"{bcolors.FAIL}Directory {self.path} not found.{bcolors.ENDC}")
             return False
-        
-    def checkFiles(self):
+    
+    # check if all required fields are present in each file
+    def checkFiles(self) -> bool:
         try:
             files = os.listdir(self.path)
             valid = True
@@ -78,7 +82,7 @@ class Check:
             return False
         
 
-def checkAll():
+def checkAll() -> bool:
     Check().readNames()
     validNames = Check().checkNames()
     if validNames:

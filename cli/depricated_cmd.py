@@ -1,6 +1,6 @@
 import cmd
 import rlcompleter
-from cli.bcolors import bcolors
+from constants.bcolors import bcolors
 from file.check import Check, checkAll
 import file.check
 
@@ -9,19 +9,15 @@ class MyCLI(cmd.Cmd, rlcompleter.Completer):
     
     intro = f''' {bcolors.HEADER}
 Welcome to Course Scheduler! 
-Type help or ? to list commands. Type q or quit to exit.
+Press tab to autocomplete. Type help or ? to list commands. Type q or quit to exit.
 
 Created inside Indian Institute of Technology, Indore, by The Programming Club.{bcolors.ENDC}
 '''
     
     def __init__(self):
         super().__init__()
-        self.prompt = f'{bcolors.HEADER}CourseScheduler>>{bcolors.ENDC} '
+        self.prompt = f'\n{bcolors.HEADER}CourseScheduler>>{bcolors.ENDC} '
 
-
-    def do_hello(self, arg):
-        'Say hello'
-        print(f"hello", arg)
 
     def do_target(self, arg):
         'See the target folder path'
@@ -35,14 +31,12 @@ Created inside Indian Institute of Technology, Indore, by The Programming Club.{
         if Check.checkPath(arg):
             file.check.path = arg
             print(f"{bcolors.OKBLUE}Target set as {file.check.path}{bcolors.ENDC}")
-
-    def complete_setTarget(self, text, line, begidx, endidx):
-        completions = [command for command in self.commands if command.startswith(text)]
-        return completions
         
-
     def do_check(self, arg):
         'Check the target folder'
+        if (file.check.path == ''): 
+            print(f"{bcolors.FAIL}Target is not set. Please set a target by: setTarget <your folder path>{bcolors.ENDC}")
+            return
         print(f"Checking file in target {file.check.path}...")
         checkAll()
 
@@ -61,10 +55,10 @@ Created inside Indian Institute of Technology, Indore, by The Programming Club.{
     
     def do_about(self, arg):
         'Information about Course Scheduler'
-        print(f"{bcolors.HEADER}Course Scheduler, by Darryl David and Vashisth Chaturvedi.\nThe Programming Club, IIT Indore.{bcolors.ENDC}")
+        print(f"{bcolors.BLUE}Course Scheduler, by Darryl David and Vashisth Chaturvedi.\nThe Programming Club, IIT Indore.{bcolors.ENDC}")
     
     def default(self, line):
-        print(f"{bcolors.WARNING}Unrecognized command \"{bcolors.RED}{line}{bcolors.WARNING}\". Type help or ? to view commands.{bcolors.ENDC}\n")
+        print(f"{bcolors.WARNING}Unrecognized command \"{bcolors.RED}{line}{bcolors.WARNING}\". Type help or ? to view commands.{bcolors.ENDC}")
 
     def do_help(self, arg):
         'Show this help'

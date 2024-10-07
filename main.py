@@ -1,6 +1,6 @@
 import readline
-from cli.bcolors import bcolors
-from cli.cmd import MyCLI
+from constants.bcolors import bcolors
+from cli.depricated_cmd import MyCLI
 
 
 if __name__ == '__main__':
