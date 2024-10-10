@@ -1,7 +1,13 @@
+import os
 import readline
-from constants.bcolors import bcolors
-from cli.depricated_cmd import MyCLI
 
+# from cli.depricated_cmd import MyCLI
+from cli.cmd import MyCLI
+from constants.text import Text
+
+
+# clear the console
+os.system('cls||clear')
 
 if __name__ == '__main__':
     
@@ -11,7 +17,8 @@ if __name__ == '__main__':
         else:
             readline.parse_and_bind("tab: complete")
 
+        # begin prompt loop
         MyCLI().cmdloop()
 
     except KeyboardInterrupt:
-        print(f"{bcolors.FAIL}\nProgram was killed.\nCourse Scheduler, by Darryl David and Vashisth Chaturvedi.\nThe Programming Club, IIT Indore.")
+        print(Text.INTERRUPT)
