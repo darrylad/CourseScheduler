@@ -14,9 +14,7 @@ class Check:
 
     # trim the path of any spaces and quotes
     def trimPath(path) -> str:
-        path = path.strip().strip('\'"')
-
-        return path
+        return path.strip().strip('\'"')
 
     # check if given path exists
     def checkPath(path) -> bool:
