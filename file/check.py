@@ -29,30 +29,39 @@ class Check:
 
     # print all files in the directory
     def readNames(self) -> bool:
+        global path
         try:
             files: list[str] = os.listdir(self.path)
             for file in files:
                 print('-- '+file)
             return True
-        except FileNotFoundError:
+        except Exception as e:
+            print(Text.INVALID_PATH(e.args))
+            path = ''
             return False
 
     # check if all required files are present
     def checkNames(self) -> bool:
+        global path
         try:
             files = os.listdir(self.path)
+            valid: bool = True
+
             for required_file in RequiredFilesConfig.requiredFilesFields.keys():
                 if required_file not in files:
                     print(Text.FILE_NOT_FOUND_IN_DIRECTORY(required_file, self.path))
-                    return False
-            # print(f"{bcolors.OKGREEN}All required files are present.{bcolors.ENDC}")
-            return True
-        except FileNotFoundError:
-            print(Text.PATH_NOT_FOUND(self.path))
+                    valid = False
+
+            return valid
+        except Exception as e:
+            print(Text.INVALID_PATH(e.args))
+            path=''
             return False
     
     # check if all required fields are present in each file
     def checkFiles(self) -> bool:
+        global path
+
         try:
             files = os.listdir(self.path)
             valid = True
@@ -61,7 +70,6 @@ class Check:
 
                 if required_file not in files:
                     print(Text.FILE_NOT_FOUND_IN_DIRECTORY(required_file, self.path))
-                    # print(f"{bcolors.FAIL}File {required_file} not found in directory {self.path}{bcolors.ENDC}")
                     return False
                 
                 else:
@@ -70,7 +78,6 @@ class Check:
 
                         if not set(required_fields).issubset(set(reader.fieldnames)):
                             print(Text.INDORRECT_COLUMNS(required_file, required_fields))
-                            # print(f"{bcolors.FAIL}Incorrect columns in {required_file}. Required columns are {required_fields}{bcolors.ENDC}")
                             valid = False
 
             if valid:
@@ -80,13 +87,15 @@ class Check:
             
             return valid
         
-        except FileNotFoundError:
-            print(Text.PATH_NOT_FOUND(self.path))
+        except Exception as e:
+            print(Text.INVALID_PATH(e.args))
+            path = ''
             return False
         
 
 def checkAll() -> bool:
-    Check().readNames()
+    if not Check().readNames():
+        return False
     validNames = Check().checkNames()
     print()
     if validNames:

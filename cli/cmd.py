@@ -2,7 +2,7 @@ import cmd
 import rlcompleter
 import time
 
-
+from cli.automator import startCurses
 from constants.bcolors import bcolors
 from file.check import Check, checkAll
 import file.check
@@ -29,7 +29,7 @@ class MyCLI(cmd.Cmd, rlcompleter.Completer):
 
     def do_setTarget(self, arg) -> None:
         'Set the target folder'
-        arg = Check.trimPath(arg)
+        arg = Check.trimPath(arg)   # trim the path of any spaces and quotes
         if Check.checkPath(arg):
             file.check.path = arg
             print(Text.TARGET_SET(file.check.path))
@@ -40,9 +40,33 @@ class MyCLI(cmd.Cmd, rlcompleter.Completer):
         if (file.check.path == ''): 
             print(Text.TARGET_NOT_SET)
             return
-        print(Text.CHECKING(file.check.path))
-        # print(f"Checking file in target {file.check.path}...")
+        print('\n'+Text.CHECKING(file.check.path))
         checkAll()
+
+    def do_start(self, arg) -> None:
+        'Start the application'
+
+        # set path
+        arg = Check.trimPath(arg)
+        if Check.checkPath(arg):
+            file.check.path = arg
+            print(Text.TARGET_SET(file.check.path))
+        else:
+            return
+
+        # check path
+        if (file.check.path == ''): 
+            print(Text.TARGET_NOT_SET)
+            return
+        
+        print('\n'+Text.CHECKING(file.check.path))
+        if checkAll():
+            time.sleep(1)
+            print()
+            print(Text.STARTING)
+            print('\n')
+            time.sleep(4)
+            startCurses()
 
     # ------------------  rudimentary commands: ------------------
 
@@ -73,7 +97,7 @@ class MyCLI(cmd.Cmd, rlcompleter.Completer):
         commands = [name[3:] for name in dir(self) if name.startswith('do_') and name != 'do_EOF']
         max_length = max(len(command) for command in commands)
 
-        print(f"{bcolors.BOLD}Documented commands:{bcolors.ENDC}")
+        print(f"\n{bcolors.OKCYAN}Documented commands:{bcolors.ENDC}")
         print()
         for command in commands:
             print(f"    {bcolors.BOLD}{command.ljust(max_length+2)}:{bcolors.ENDC}  {getattr(self, 'do_' + command).__doc__}")

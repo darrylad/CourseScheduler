@@ -31,6 +31,9 @@ Created inside Indian Institute of Technology, Indore, by The Programming Club.{
 
     EMPTY_PATH = f"{bcolors.FAIL}Empty path. Please provide a valid path.{bcolors.ENDC}"
 
+    def INVALID_PATH(e):
+        return f"{bcolors.FAIL}Invalid path. Please provide a valid path.\n {e}{bcolors.ENDC}"
+
     @staticmethod
     def PATH_NOT_FOUND(path):
         return f"{bcolors.FAIL}Directory \"{path}\" not found.{bcolors.ENDC}"
@@ -41,7 +44,7 @@ Created inside Indian Institute of Technology, Indore, by The Programming Club.{
     
     @staticmethod
     def CHECKING(path):
-        return f"Checking files in target {path}..."
+        return f"{bcolors.OKCYAN}Checking files in target \"{path}\"...{bcolors.ENDC}"
     
     @staticmethod
     def FILE_NOT_FOUND_IN_DIRECTORY(required_file, path):
@@ -55,9 +58,11 @@ Created inside Indian Institute of Technology, Indore, by The Programming Club.{
 
     ALL_FILES_VALID = f"{bcolors.OKGREEN}All files are valid.{bcolors.ENDC}"
 
-    CHECKING_WITHIN = f"Now checking withing these files..."
+    CHECKING_WITHIN = f"{bcolors.OKCYAN}Now checking withing these files...{bcolors.ENDC}"
 
     SOME_CHECKS_FAILED = f"{bcolors.FAIL}Some checks failed.{bcolors.ENDC}"
+
+    STARTING = f"{bcolors.OKCYAN}Starting...{bcolors.ENDC}"
     
 
     # ------------------ rudimentary ------------------
