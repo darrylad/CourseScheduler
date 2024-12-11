@@ -4,4 +4,4 @@ A command line tool that simplifies the process of building time tables by autom
 
 ## About
 
-Created by Darryl David, Aviral Sharma and Vashistha Chaturvedi, from The Programming Club, Indian Institute of Technology, Indore.
+Created by Darryl David and Aviral Sharma, from The Programming Club, Indian Institute of Technology, Indore.
