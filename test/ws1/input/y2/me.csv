@@ -2,9 +2,9 @@ department,year,course,strength,credits
 cs,2,cs201,80,3
 cs,2,cs203,80,4
 cs,2,cs205,80,2
-cs,2,cs207,80,3
+cs,2,cs207,80,3d
 cs,2,cs251,80,3
-me,2,me201,70,3
+me,2,me201,70,3s
 me,2,me203,70,4
 ,,,,
 ,,,,

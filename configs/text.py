@@ -54,8 +54,8 @@ Created inside Indian Institute of Technology, Indore, by The Programming Club.{
     def INDORRECT_COLUMNS(required_file, required_fields):
         return f"{bcolors.FAIL}File {bcolors.ENDC}{required_file}{bcolors.FAIL} does not contain the required columns: {bcolors.ENDC}{required_fields}"
     
-    def FIELD_ERROR(row, e):
-        print(f"{bcolors.FAIL}Error processing row {row}: {e}. Please ensure all numeric fields contain valid numbers.{bcolors.ENDC}")
+    def FIELD_ERROR(row, e, path):
+        print(f"{bcolors.FAIL}Error processing row {bcolors.WARNING}{row}{bcolors.FAIL} in {bcolors.WARNING}{path}{bcolors.FAIL}: {bcolors.WARNING}{e}{bcolors.FAIL}. Please ensure all numeric fields contain valid numbers.{bcolors.ENDC}")
     
     ALL_FILES_PRESENT = f"{bcolors.OKGREEN}All required files are present.{bcolors.ENDC}"
 

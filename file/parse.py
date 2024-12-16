@@ -32,6 +32,8 @@ from file.check import Check
 timetable_data = {
     "departments": {},
     "rooms": [],
+    "slots": {"pre_lunch": 3, "post_lunch": 3},
+    "days": 5
 }
 
 class Parse:
@@ -63,7 +65,7 @@ class Parse:
                                     credits = int(row['credits'])
                                     strength = int(row['strength'])
                                 except ValueError as e:
-                                    Text.FIELD_ERROR(row, e)
+                                    Text.FIELD_ERROR(row, e, file_path)
                                     continue
 
                                 if department not in timetable_data["departments"]:
@@ -93,7 +95,7 @@ class Parse:
 
     @staticmethod
     def printdata():
-        print("Timetable data:")
+        print("\nTimetable data:")
         def custom_print(data, indent=0):
             for key, value in data.items():
                 if isinstance(value, dict):

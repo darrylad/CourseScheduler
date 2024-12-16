@@ -2,14 +2,11 @@ import cmd
 import rlcompleter
 import time
 
-from cli.automator import startCurses
 from configs.bcolors import bcolors
-import file
-
+import file.parse
 from configs.text import Text
 from cli.output import Output
-from algorithms import generate
-import file.parse 
+
 
 class MyCLI(cmd.Cmd, rlcompleter.Completer):
     
@@ -57,7 +54,16 @@ class MyCLI(cmd.Cmd, rlcompleter.Completer):
 
     def do_viewdata(self, arg) -> None:
         'View input data'
-        print(generate.timetable_data)
+        file.parse.Parse.printdata()
+
+    def do_cleardata(self, arg) -> None:
+        'Clear timetable data'
+        file.parse.timetable_data = {
+            "departments": {},
+            "rooms": [],
+            "slots": {"pre_lunch": 3, "post_lunch": 3},
+            "days": 5
+        }
 
     # ------------------  rudimentary commands: ------------------
 
@@ -96,7 +102,7 @@ class MyCLI(cmd.Cmd, rlcompleter.Completer):
 
     def do_loading(self, arg):
         # A List of Items
-        items = list(range(0, 57))
+        items = list(range(0, 26))
         l = len(items)
 
         # Initial call to print 0% progress
