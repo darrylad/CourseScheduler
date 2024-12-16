@@ -1,6 +1,6 @@
 from typing import Final
 
-from constants.bcolors import bcolors
+from configs.bcolors import bcolors
 
 
 class Text:
@@ -54,6 +54,9 @@ Created inside Indian Institute of Technology, Indore, by The Programming Club.{
     def INDORRECT_COLUMNS(required_file, required_fields):
         return f"{bcolors.FAIL}File {bcolors.ENDC}{required_file}{bcolors.FAIL} does not contain the required columns: {bcolors.ENDC}{required_fields}"
     
+    def FIELD_ERROR(row, e):
+        print(f"{bcolors.FAIL}Error processing row {row}: {e}. Please ensure all numeric fields contain valid numbers.{bcolors.ENDC}")
+    
     ALL_FILES_PRESENT = f"{bcolors.OKGREEN}All required files are present.{bcolors.ENDC}"
 
     ALL_FILES_VALID = f"{bcolors.OKGREEN}All files are valid.{bcolors.ENDC}"
@@ -74,11 +77,11 @@ Created inside Indian Institute of Technology, Indore, by The Programming Club.{
     def UNRECOGNIZED_COMMAND(cmd):
         return f"{bcolors.WARNING}Unrecognized command \"{bcolors.ENDC}{cmd}{bcolors.WARNING}\". Type help or ? to view commands.{bcolors.ENDC}"
 
-    QUIT = f'{bcolors.YELLOW}Quitting.\n\nThank you for using Course Scheduler.\n\nBy Darryl David and Vashistha Chaturvedi.\nThe Programming Club, IIT Indore.{bcolors.ENDC}\n'
+    QUIT = f'{bcolors.YELLOW}Quitting.\n\nThank you for using Course Scheduler.\n\nBy Darryl David and Aviral Sharma.\nThe Programming Club, IIT Indore.{bcolors.ENDC}\n'
 
-    ABOUT = f"{bcolors.BLUE}Course Scheduler, by Darryl David and Vashistha Chaturvedi.\nThe Programming Club, IIT Indore.{bcolors.ENDC}"
+    ABOUT = f"{bcolors.BLUE}Course Scheduler, by Darryl David and Aviral Sharma.\nThe Programming Club, IIT Indore.{bcolors.ENDC}"
 
-    INTERRUPT = f"{bcolors.FAIL}\nProgram was killed.\nCourse Scheduler, by Darryl David and Vashistha Chaturvedi.\nThe Programming Club, IIT Indore.{bcolors.ENDC}"
+    INTERRUPT = f"{bcolors.FAIL}\nProgram was killed.\nCourse Scheduler, by Darryl David and Aviral Sharma.\nThe Programming Club, IIT Indore.{bcolors.ENDC}"
 
 
     

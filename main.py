@@ -1,9 +1,8 @@
 import os
 import readline
 
-# from cli.depricated_cmd import MyCLI
 from cli.cmd import MyCLI
-from constants.text import Text
+from configs.text import Text
 
 
 # clear the console

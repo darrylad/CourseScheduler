@@ -3,12 +3,13 @@ import rlcompleter
 import time
 
 from cli.automator import startCurses
-from constants.bcolors import bcolors
-from file.check import Check, checkAll
-import file.check
-from constants.text import Text
-from cli.output import Output
+from configs.bcolors import bcolors
+import file
 
+from configs.text import Text
+from cli.output import Output
+from algorithms import generate
+import file.parse 
 
 class MyCLI(cmd.Cmd, rlcompleter.Completer):
     
@@ -18,55 +19,45 @@ class MyCLI(cmd.Cmd, rlcompleter.Completer):
         super().__init__()
         self.prompt = Text.PROMPT
 
-
-    def do_target(self, arg) -> None:
-        'See the target folder path'
-        if file.check.path == '':
-            print(Text.TARGET_NOT_SET)
-        else:
-            # print(f"Target is {file.check.path}")
-            print(Text.TARGET_SET(file.check.path))
-
-    def do_setTarget(self, arg) -> None:
-        'Set the target folder'
-        arg = Check.trimPath(arg)   # trim the path of any spaces and quotes
-        if Check.checkPath(arg):
-            file.check.path = arg
-            print(Text.TARGET_SET(file.check.path))
-
         
-    def do_check(self, arg) -> None:
-        'Check the target folder'
-        if (file.check.path == ''): 
-            print(Text.TARGET_NOT_SET)
-            return
-        print('\n'+Text.CHECKING(file.check.path))
-        checkAll()
+
+    def do_read(self, arg) -> None:
+        'Read the target folder'
+
+        print('\n'+"Reading "+arg)
+
+        file.parse.Parse.populate_timetable_data(arg)
+        file.parse.Parse.printdata()
+
 
     def do_start(self, arg) -> None:
-        'Start the application'
+        'Run automator'
 
-        # set path
-        arg = Check.trimPath(arg)
-        if Check.checkPath(arg):
-            file.check.path = arg
-            print(Text.TARGET_SET(file.check.path))
-        else:
-            return
+        # set patha
 
-        # check path
-        if (file.check.path == ''): 
-            print(Text.TARGET_NOT_SET)
-            return
+        # if Check.checkPath(arg):
+        #     file.check.path = arg
+        #     print(Text.TARGET_SET(file.check.path))
+        # else:
+        #     return
+
+        # # check path
+        # if (file.check.path == ''): 
+        #     print(Text.TARGET_NOT_SET)
+        #     return
         
-        print('\n'+Text.CHECKING(file.check.path))
-        if checkAll():
-            time.sleep(1)
-            print()
-            print(Text.STARTING)
-            print('\n')
-            time.sleep(4)
-            startCurses()
+        # print('\n'+Text.CHECKING(file.check.path))
+        # if checkAll():
+        #     time.sleep(1)
+        #     print()
+        #     print(Text.STARTING)
+        #     print('\n')
+        #     time.sleep(4)
+        #     startCurses()
+
+    def do_viewdata(self, arg) -> None:
+        'View input data'
+        print(generate.timetable_data)
 
     # ------------------  rudimentary commands: ------------------
 
